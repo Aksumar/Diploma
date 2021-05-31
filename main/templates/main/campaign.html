@@ -1,0 +1,185 @@
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Клиентская аналитика</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../../static/css/style_campaign.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<section class="title_form">
+    <h1 class="title"> Шаг 3. Настройка кампании</h1>
+</section>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+
+    <section class="input_files_form">
+        <form>
+
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td><h5>Стоимость коммуникации</h5></td>
+                    <td>Call-центр</td>
+                    <td>
+                        {{ form.phone_cost }}
+                        <span class="errorlist">
+                                    {{ form.phone_cost.errors }}
+                                </span>
+                    </td>
+                    <td>Cмс-рассылка</td>
+                    <td>
+                        {{ form.sms_cost }}
+                        <span class="errorlist">
+                                    {{ form.sms_cost.errors }}
+                                </span>
+                    </td>
+                    <td>Email-рассылка:</td>
+                    <td>
+                        {{ form.email_cost }}
+                        <span class="errorlist">
+                                    {{ form.email_cost.errors }}
+                                </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h5>% коммуникации</h5></td>
+                    <td>Call-центр</td>
+                    <td>
+                        {{ form.phone_percent }}
+                        <span class="errorlist">
+                                    {{ form.phone_percent.errors }}
+                                </span>
+                    </td>
+                    <td>Cмс-рассылка</td>
+                    <td>
+                        {{ form.sms_percent }}
+                        <span class="errorlist">
+                                    {{ form.sms_percent.errors }}
+                            </span>
+                    </td>
+                    <td>Email-рассылка:</td>
+                    <td>
+                        {{ form.email_percent }}
+                        <span class="errorlist">
+                                    {{ form.email_percent.errors }}
+                            </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <form>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="fieldWrapper">
+                            <label class="label" for="{{ form.calls_limit.id_for_label }}">Звонки:</label>
+                            {{ form.calls_limit }}
+                            <span class="errorlist">
+
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="fieldWrapper">
+                            <label class="label" for="{{ form.sale.id_for_label }}">Скидка%:</label>
+                            {{ form.sale }}
+                            <span class="errorlist">
+                                </span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="fieldWrapper">
+                            <label class="label" for="{{ form.min.id_for_label }}">Отклик%:</label>
+                            {{ form.min }}
+                            <span class="errorlist">
+                                    {{ form.min.errors }}
+                                </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="col">
+                        <div class="fieldWrapper">
+                            <label class="label" for="{{ form.cheque_up.id_for_label }}">Средний
+                                чек +:</label>
+                            {{ form.cheque_up }}
+                            <span class="errorlist">
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="fieldWrapper">
+                            <label class="label" for="{{ form.budget.id_for_label }}">Бюджет кампании:</label>
+                            {{ form.budget }}
+                            <span class="errorlist">
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="custom-file-upload col">
+                            <button type="submit" class="submit-btn">OK</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+            <table class="table">
+                <tbody>
+
+                {% for limit in limits %}
+                    <tr>
+
+                        <td>{{ limit }}</td>
+                        <td>
+                            <input type="number" name="limits" style="width: 45px; padding: 1px" value="0">
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        </form>
+
+    </section>
+
+
+</form>
+
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<!-- Font Awesome -->
+<script src="../../static/js/all.min.js"></script>
+<!-- End Script Source Files -->
+</body>
+</html>

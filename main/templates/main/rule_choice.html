@@ -1,0 +1,146 @@
+{% load rule_tags %}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Клиентская аналитика</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Style CSS -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.bootstrap.min.css">
+    <link rel="stylesheet" href=" https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap.min.css">
+
+    <link rel="stylesheet" href="../../static/css/style_rule_choice.css">
+
+</head>
+
+<body>
+
+
+<section class="title_form">
+    <h1 class="title"> Шаг 2. Выбор правил</h1>
+</section>
+
+<form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+
+    {% for i  in clusters %}
+
+        <section class="input_files_form">
+
+            {% rules_of_class i as rules_new %}
+
+            <div class="row">
+                <div class="col">
+                    <div class="card card-body">
+                        <h1 class="title ">Группа {{ i }}</h1>
+                    </div>
+                    <div class="card card-body">
+                        <table class="table"
+                               data-toggle="table"
+                               data-search="true"
+                               data-filter-control="true"
+                               data-show-export="true"
+                               data-click-to-select="true"
+                               data-toolbar="#toolbar" id="TABLE_{{ i }}" style="width: 80%">
+                            <thead>
+                            <tr>
+                                <th data-field="left" data-filter-control="select">LEFT</th>
+                                <th data-sortable="true">LEFT_SUPPORT%</th>
+                                <th>RIGHT</th>
+                                <th data-sortable="true">RIGHT_SUPPORT%</th>
+                                <th data-sortable="true">SUPPORT%</th>
+                                <th data-sortable="true">CONFIDENCE%</th>
+                                <th data-sortable="true">LIFT</th>
+                                <th data-field="state" data-checkbox="true"></th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {% for rule in rules_new %}
+                                <tr>
+                                    <td>{{ rule.left }}</td>
+                                    <td>{{ rule.left_support }}</td>
+                                    <td>{{ rule.right }}</td>
+                                    <td>{{ rule.right_support }}</td>
+                                    <td>{{ rule.support }}</td>
+                                    <td>{{ rule.confidence }}</td>
+                                    <td>{{ rule.lift }}</td>
+                                    <td class="bs-checkbox-{{ rule.id }}">
+                                        <label>
+                                            <input data-index="0" name="checked_selection" value="{{ rule.id }}"
+                                                   type="checkbox">
+                                        </label></td>
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+    <section class="input_files_form">
+        <div class="custom-file-upload col-lg-4">
+            <button type="submit" class="submit-btn">OK</button>
+        </div>
+    </section>
+</form>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+<!-- Latest compiled and minified Locales -->
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+<!-- Font Awesome -->
+<script src="../../static/js/all.min.js"></script>
+<!-- Tables -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap.min.js  "></script>
+
+<script>
+    $(document).ready(function () {
+        $("table[id^='TABLE']").DataTable({
+            "scrollY": "400px",
+            "scrollCollapse": true,
+            "searching": true,
+            "paging": false,
+            "page_Length": 10
+        });
+    });
+</script>
+
+<!-- End Script Source Files -->
+</body>
+</html>
