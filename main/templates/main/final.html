@@ -28,28 +28,38 @@
 
 
     <section class="input_files_form">
-        <h1 class="title"> Группа 1. </h1>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Соверши покупку в категориях “Группа2_ИГРУШКИ” и “Группа2_КАНЦТОВАРЫ, КНИГИ,
-                ДИСКИ”
-                на 2500 рублей и получи скидку 5%
-            </li>
-        </ul>
 
-        <h1 class="title "> Группа 2. </h1>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Соверши покупку в категориях “Группа2_ИГРУШКИ” и “Группа2_КАНЦТОВАРЫ, КНИГИ,
-                ДИСКИ”
-                на 2000 рублей и получи скидку 5%
-            </li>
-            <li class="list-group-item">Соверши покупку в категориях “Группа2_КОСМЕТИКА/ГИГИЕНА” и “Группа2_ТЕКСТИЛЬ, ТРИКОТАЖ”
-                на 2500 рублей и получи скидку 5%
-            </li>
-        </ul>
+        {% for rule in rules %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                   {{ rule.cluster }}: Совершите покупку в категориях {{rule.left}} и {{rule.right}} на сумму от {{ rule.new_cheque }} и получите скидку {{ rule.sale }}
+                    <br/>
+                    <br/>
+
+                    Средний чек кластера : {{ rule.cheque }}
+
+                    <br/>
+                    <br/>
+
+                    Call-центр : {{ rule.phone_number }} <br/>
+                    Sms : {{ rule.sms_number }} <br/>
+                    email : {{ rule.email_number }}
+
+                    <br/>
+                    <br/>
+
+                    Расходы : {{ rule.total_cost }}  Минимальная прибыль : {{ rule.total_revenue }}
+                </li>
+            </ul>
+        {% endfor %}
+
     </section>
 
     <section class="input_files_form">
-        Расчетная выручка : 31.282
+        Расчетная выручка : {{ revenue }} <br/><br/>
+        Расходы : {{ costs }}  <br/><br/>
+
+        <a class="btn btn-outline-secondary" href="/media/Результаты.zip" role="button">Скачать результаты</a>
     </section>
 
 

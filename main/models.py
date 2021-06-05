@@ -45,7 +45,7 @@ class Rule(models.Model):
         self.confidence = self.confidence * 100
 
     def __str__(self):
-        return f"{self.cluster_class}: {self.left} - {self.right}"
+        return f"{self.cluster_class}: основной товар: {self.left}  сопутствующий: {self.right} confidence: {self.confidence}"
 
 
 class Customer(models.Model):
@@ -57,7 +57,7 @@ class Customer(models.Model):
 
 
 class Campaign(models.Model):
-    phone_cost = models.FloatField(default=0)
+    phone_cost = models.FloatField(default=0, validators=[MinValueValidator(0)], null=True)
     sms_cost = models.FloatField(default=0)
     email_cost = models.FloatField(default=0)
 

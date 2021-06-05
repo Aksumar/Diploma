@@ -180,7 +180,7 @@ class mbaMethod:
             x = pd.merge(left=df_clients, left_index=True, right=x,
                          right_index=True)
 
-            x.to_csv('media/pivot.csv', index=True)
+            x.to_csv('media/СводнаяТаблица.csv', index=True)
 
             # columns_to_dict = x.columns[4:]
             # print(columns_to_dict)
